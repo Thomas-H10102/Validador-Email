@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt=br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validação de Email</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('form').submit(function(event) {
+                event.preventDefault();
+                var email = $('#email').val();
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/',
+                    data: { email: email },
+                    success: function(response) {
+                        if (response.result === 'valid') {
+                            $('#result').removeClass('invalid').addClass('valid').text('Email válido!');
+                        } else {
+                            $('#result').removeClass('valid').addClass('invalid').text('Email inválido!');
+                        }
+                        $('#result').show();
+
+                        // Hide the result after 2 seconds
+                        setTimeout(function() {
+                            $('#result').fadeOut('slow');
+                        }, 2000);
+                    },
+                    error: function() {
+                        $('#result').removeClass('valid').addClass('invalid').text('Ocorreu um erro na validação do email.');
+                        $('#result').show();
+
+                        // Hide the result after 2 seconds
+                        setTimeout(function() {
+                            $('#result').fadeOut('slow');
+                        }, 2000);
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h2>Validação de Email</h2>
+        <form>
+            <label for="email">Digite o email:</label>
+            <input type="text" id="email" name="email" placeholder="email@exemplo.com">
+            <input type="submit" value="Verificar">
+        </form>
+        <div id="result" style="display:none;"></div>
+    </div>
+</body>
+</html>
