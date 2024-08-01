@@ -26,4 +26,4 @@ Antes de começar, você precisa ter o Python e o `pip` instalados no seu sistem
    git clone https://github.com/Thomas-H10102/Validador-Email.git
 
 # Acesse site para Testar
-https://thomash.site
+https://validador.thomash.site
